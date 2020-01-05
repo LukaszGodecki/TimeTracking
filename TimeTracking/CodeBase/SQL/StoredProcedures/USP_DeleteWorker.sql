@@ -1,0 +1,11 @@
+﻿CREATE PROCEDURE [dbo].[USP_DeleteWorker] 
+@ID TINYINT
+AS
+	BEGIN
+		SET NOCOUNT ON;
+			BEGIN 
+			DELETE FROM [dbo].[Workers] WHERE [ID]=@ID
+			END
+		SET NOCOUNT OFF
+	END
+GO
