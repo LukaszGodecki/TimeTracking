@@ -1,0 +1,11 @@
+﻿CREATE PROCEDURE [dbo].[USP_DeleteJobType] 
+@ID TINYINT
+AS
+	BEGIN
+		SET NOCOUNT ON;
+			BEGIN 
+			DELETE FROM [dbo].[JobTypes] WHERE [ID]=@ID
+			END
+		SET NOCOUNT OFF
+	END
+GO
