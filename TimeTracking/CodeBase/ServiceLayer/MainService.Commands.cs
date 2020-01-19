@@ -42,5 +42,34 @@ namespace TimeTracking.CodeBase.ServiceLayer
         }
         #endregion
 
+        #region JobType
+        public static void DeleteJobType(int ID)
+        {
+            var command = new DeleteJobTypeCommand(ID);
+            handleCommand(command);
+        }
+        public static void UpdateJobType(JobType jobType)
+        {
+            var command = new UpdateJobTypeCommand(jobType);
+            handleCommand(command);
+        }
+        public static int InsertJobType(JobType jobType)
+        {
+            var command = new InsertJobTypeCommand(jobType);
+            handleCommand(command);
+            return InsertJobTypeCommand.InsertedID;
+
+            #endregion
+
+        }
+        #region TimeTrackingLog
+        public static void InsertTimeTrackingLog(TimeTrackingLog timeTrackingLog)
+        {
+            var command = new InsertTimeTrackigLogCommand(timeTrackingLog);
+            handleCommand(command);
+
+        #endregion
+
+        }
     }
 }

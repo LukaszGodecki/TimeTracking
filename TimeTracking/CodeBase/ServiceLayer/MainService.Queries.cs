@@ -36,5 +36,33 @@ namespace TimeTracking.CodeBase.ServiceLayer
             return handleQuery(query);
         }
         #endregion
+
+        #region JobType
+        public static List<JobType> GetAllJobTypes()
+        {
+            var query = new GetAllJobTypesQuery();
+            return handleQuery(query);
+        }
+        public static JobType GetSingleJobType(int ID)
+        {
+             var query = new GetSingleJobTypeQuery(ID);
+             return handleQuery(query);
+        }
+        #endregion
+        #region TimeTrackingLog
+        public static List<TimeTrackingLog> GetAllTimeTrackingLogsForSelectedJob(string job)
+        {
+            var query = new GetAllTimeTrackingLogsForSelectedJobQuery(job);
+            return handleQuery(query);
+        }
+        #endregion
+        #region TimeTrackingGroups
+        public static List<TimeTrackingGroup> GetTimeTrackingGroups(string guid, string job, int jobTypeId)
+        {
+            var query = new GetTimeTrackingGroupsQuery(guid, job, jobTypeId);
+            return handleQuery(query);
+        }
+        #endregion
+
     }
 }
