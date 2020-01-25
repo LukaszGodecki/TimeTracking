@@ -15,6 +15,8 @@ namespace TimeTracking
 {
     public class Startup
     {
+
+        readonly string corsPolicyName = "DefPolicy";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -26,6 +28,16 @@ namespace TimeTracking
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(corsPolicyName,
+                    builder =>
+                    {
+                        builder.WithOrigins("*");
+                    });
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +55,8 @@ namespace TimeTracking
             app.UseAuthorization();
 
             app.UseAuthentication();
+
+            app.UseCors(corsPolicyName);
 
             app.UseEndpoints(endpoints =>
             {
