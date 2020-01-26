@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using TimeTracking.Entities;
 using TimeTracking.CodeBase.ServiceLayer;
 using System.Data.SqlTypes;
+using TimeTracking.CodeBase.ServiceLayer.Tools;
 
 namespace TimeTracking.CodeBase.DataLayer.Queries
 {
@@ -15,19 +16,11 @@ namespace TimeTracking.CodeBase.DataLayer.Queries
         private string guid; 
         private string job;
         private int jobTypeId;
-        private bool isJobTypeIdNull;
         public GetTimeTrackingGroupsQuery(string guid, string job, int jobTypeId)
         {
             this.guid = guid;
-            this.job = job;            
-            this.jobTypeId = jobTypeId;
-            if (jobTypeId == 0)
-            {
-                this.isJobTypeIdNull = true;
-            } else
-            {
-                this.isJobTypeIdNull = false;
-            }
+            this.job = job;
+            this.jobTypeId = jobTypeId;            
         }
         public List<TimeTrackingGroup> Execute()
         {
@@ -37,10 +30,10 @@ namespace TimeTracking.CodeBase.DataLayer.Queries
             {
                 if (sqlConn.State != ConnectionState.Open) sqlConn.Open();
                 SqlCommand sqlComm = new SqlCommand(sqlQuery, sqlConn);
-                sqlComm.CommandType = CommandType.StoredProcedure;
-                sqlComm.Parameters.Add("@" + TimeTrackingGroup.GuidDatabaseColumnName, SqlDbType.NVarChar).Value = guid;
-                sqlComm.Parameters.Add("@" + TimeTrackingGroup.JobDatabaseColumnName, SqlDbType.NVarChar).Value = job;
-                sqlComm.Parameters.Add("@" + TimeTrackingGroup.JobTypeIdDatabaseColumnName, SqlDbType.Int).Value = DBNull.Value;
+                sqlComm.CommandType = CommandType.StoredProcedure;               
+                sqlComm.Parameters.Add("@" + TimeTrackingGroup.GuidDatabaseColumnName, SqlDbType.NVarChar).Value = guid.DbNullIfNull();
+                sqlComm.Parameters.Add("@" + TimeTrackingGroup.JobDatabaseColumnName, SqlDbType.NVarChar).Value = job.DbNullIfNull();
+                sqlComm.Parameters.Add("@" + TimeTrackingGroup.JobTypeIdDatabaseColumnName, SqlDbType.Int).Value = jobTypeId;
                 using (SqlDataReader r = sqlComm.ExecuteReader())
                 {
                     while (r.Read())

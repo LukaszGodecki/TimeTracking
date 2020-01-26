@@ -14,7 +14,7 @@ namespace TimeTracking.Controllers
     [ApiController]
     public class TimeTrackingGroupController : ControllerBase
     {
-        [HttpGet]
+        [Route(""), HttpGet]
         public List<TimeTrackingGroup> GetTimeTrackingGroups([FromQuery] string guid, string job, int jobTypeId)
         {
             return MainService.GetTimeTrackingGroups(guid, job, jobTypeId);

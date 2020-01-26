@@ -28,8 +28,8 @@ namespace TimeTracking.Controllers
                 return new ObjectResult(exc) { StatusCode = 500 };
             }
         }
-        [Route("{Job}"), HttpGet]
-        public List<TimeTrackingLog> GetAllTimeTrackingLogsForSelectedJob([FromRoute] string job)
+        [Route("selectedJob"), HttpGet]
+        public List<TimeTrackingLog> GetAllTimeTrackingLogsForSelectedJob([FromQuery] string job)
         {
             return MainService.GetAllTimeTrackingLogsForSelectedJob(job);
         }

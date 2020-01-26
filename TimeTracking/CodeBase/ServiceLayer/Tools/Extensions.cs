@@ -22,5 +22,10 @@ namespace TimeTracking.CodeBase.ServiceLayer.Tools
 			}
 			return HasSearchedColumn;
 		}
+
+		public static object DbNullIfNull(this object obj)
+		{
+			return obj != null ? obj : DBNull.Value;
+		}
 	}
 }
