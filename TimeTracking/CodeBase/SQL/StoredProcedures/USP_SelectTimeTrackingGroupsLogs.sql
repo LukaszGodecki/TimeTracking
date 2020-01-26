@@ -16,7 +16,7 @@ BEGIN
 				, [JobTypeId]
 				, Count(ID) AS [Count]
 				FROM [dbo].[TimeTrackingLogs]
-				WHERE [Job] = ISNULL(@Job, [Job]) AND [Guid] = ISNULL(@Guid, [Guid]) AND [JobTypeId] = ISNULL(@JobTypeId, [JobTypeId])
+				WHERE [Job] = ISNULL(@Job, [Job]) AND [Guid] = ISNULL(@Guid, [Guid]) AND [JobTypeId] = IIF(@JobTypeId=0,[JobTypeId], @JobTypeID)
 				GROUP BY [Guid], [Job], [JobTypeId]
 				
 			END
